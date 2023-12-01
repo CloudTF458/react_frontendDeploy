@@ -88,7 +88,7 @@ const PendingBalanceTable = ({ setSelectedBalance }) => {
             <Th align="center">Pending</Th>
             <Th align="center">Total</Th>
             <Th align="center">Accepted</Th>
-            <Th align="right">Fetch</Th>
+            <Th align="center">Fetch</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -101,7 +101,7 @@ const PendingBalanceTable = ({ setSelectedBalance }) => {
                 <Td align="center">${balance.saldo_pendiente}</Td>
                 <Td align="center">${balance.saldo_total}</Td>
                 <Td align="center">{balance.aceptado}</Td>
-                <Td align="right">
+                <Td align="center">
                   <IconButton onClick={() => handleFetch(balance)}>
                     <Icon color="info">edit</Icon>
                   </IconButton>

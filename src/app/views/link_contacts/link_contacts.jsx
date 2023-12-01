@@ -20,11 +20,11 @@ const AppForm = () => {
   return (
     <Container>
       <Box className="breadcrumb">
-        <Breadcrumb routeSegments={[{ name: "Event", path: "/link/contacts" }, { name: "add_remove_contacts" }]} />
+        <Breadcrumb routeSegments={[{ name: "Event", path: "/link/contacts" }, { name: "add_contacts_activities" }]} />
       </Box>
 
       <Stack spacing={3}>
-        <SimpleCard title="Add or Remove Contacts Form">
+        <SimpleCard title="Add Contacts to activities">
           <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'left'}}>
             NOTE: Please type a valid input, valid imputs follow this syntax, i.e.:
           </Typography>

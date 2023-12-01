@@ -87,7 +87,7 @@ const PendingBalanceTable = ({ setSelectedEvent }) => {
             <Th align="center">E-type</Th>
             <Th align="center">Picture</Th>
             <Th align="center">Creator</Th>
-            <Th align="right">Fetch</Th>
+            <Th align="center">Fetch</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -103,7 +103,7 @@ const PendingBalanceTable = ({ setSelectedEvent }) => {
                   </div>
                 </Td>
                 <Td align="center">{events.evento_creador}</Td>
-                <Td align="right">
+                <Td align="center">
                   <IconButton onClick={() => handleEditEvent(events)}>
                     <Icon color="info">edit</Icon>
                   </IconButton>
