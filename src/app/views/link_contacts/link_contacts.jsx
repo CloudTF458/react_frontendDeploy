@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { Breadcrumb, SimpleCard } from "app/components";
+import { useState } from "react";
 import LinkContactsForm from "./link_contacts_form";
 import LinkContactsTable from "./LinkContactsTable";
 
@@ -14,6 +15,8 @@ const Container = styled("div")(({ theme }) => ({
 }));
 
 const AppForm = () => {
+  const [selectedData, setSelectedData] = useState(null)
+
   return (
     <Container>
       <Box className="breadcrumb">
@@ -41,10 +44,10 @@ const AppForm = () => {
             NOTE2: If you don't specify the Participation values, system will automatically set up 
             equal percentage to all participants.
           </Typography>
-          <LinkContactsForm />
+          <LinkContactsForm selectedData={selectedData} />
         </SimpleCard>
         <SimpleCard title="Created Events">
-          <LinkContactsTable />
+          <LinkContactsTable setSelectedData={setSelectedData} />
         </SimpleCard>
       </Stack>
     </Container>

@@ -12,6 +12,7 @@ import EventRoutes from './views/events/EventsRoutes';
 import ActivitiesRoutes from './views/activities/ActivitiesRoutes';
 import ModifyEventsRoutes from './views/modify_events/ModifyEventsRoutes';
 import LinkContactsRoutes from './views/link_contacts/LinkContactsRoutes';
+import SendInvitationRoutes from './views/send_invitation/SendInvitationRoutes';
 import AcceptActivitiesRoutes from "./views/accept_activities/AcceptActivitiesRoutes";
 import ActivitiesAllEventsRoutes from "./views/activities_all_events/ActivitiesAllEventsRoutes"
 
@@ -25,7 +26,7 @@ const routes = [
     children: [...dashboardRoutes, ...chartsRoute, ...materialRoutes, 
                ...contactsRoutes, ...userRoutes, ...EventRoutes,
                ...ModifyEventsRoutes, ...LinkContactsRoutes, ...AcceptActivitiesRoutes,
-               ...ActivitiesAllEventsRoutes, ...ActivitiesRoutes],
+               ...ActivitiesAllEventsRoutes, ...ActivitiesRoutes, ...SendInvitationRoutes],
   },
   ...sessionRoutes,
   { path: '/', element: <Navigate to="session/signin" /> },

@@ -1,6 +1,8 @@
 import {
   Box,
   styled,
+  Icon,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -23,7 +25,7 @@ const StyledTable = styled(Table)(({ theme }) => ({
   },
 }));
 
-const PendingBalanceTable = () => {
+const PendingBalanceTable = ({ setSelectedEvent }) => {
   const context = useContext(userContext);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -64,6 +66,10 @@ const PendingBalanceTable = () => {
     setPage(0);
   };
 
+  const handleEditEvent = (event) => {
+    setSelectedEvent(event)
+  }
+
   if (createdEvents == null){
     return <p>No data found!.</p>;
   }
@@ -72,13 +78,14 @@ const PendingBalanceTable = () => {
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable>
+      <StyledTable responsive>
         <TableHead>
           <TableRow>
             <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Event type</TableCell>
+            <TableCell align="center">Event<br />type</TableCell>
             <TableCell align="center">Picture</TableCell>
             <TableCell align="center">Creator</TableCell>
+            <TableCell align="right">Fetch Data</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -94,6 +101,11 @@ const PendingBalanceTable = () => {
                   </div>
                 </TableCell>
                 <TableCell align="center">{events.evento_creador}</TableCell>
+                <TableCell align="right">
+                  <IconButton onClick={() => handleEditEvent(events)}>
+                    <Icon color="info">edit</Icon>
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>

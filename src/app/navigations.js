@@ -27,6 +27,8 @@ export const navigations = [
         {name: 'Modify event', iconText: 'SI', path:'/modify/events'},
         {name: 'My pending balance', iconText: 'SI', path:'/my-pending/balance'},
         {name: 'Add/Remove contacts', iconText: 'SI', path:'/link/contacts'},
+        {name: 'Send Invitations', iconText: 'SI', path:'/send/invitation'},
+        {name: 'Accept Invitations', iconText: 'SI', path:'/accept/invitation'},
         {name: 'All Activities', iconText: 'SI', path:'/all/Activities'},
     ],
   },
@@ -36,7 +38,6 @@ export const navigations = [
     children: [
         {name: 'Create activity', iconText: 'SI', path:'/create/activities'},
         {name: 'Modify activity', iconText: 'SI', path:'/modify/activities'},
-        {name: 'Accept activities', iconText: 'SI', path:'/accept/activities'},
     ],
   },
   // { label: 'Components', type: 'label' },

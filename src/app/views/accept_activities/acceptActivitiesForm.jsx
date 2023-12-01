@@ -6,7 +6,7 @@ import {
   import { LoadingButton } from '@mui/lab';
   import { Alert, Snackbar } from "@mui/material";
   import { Span } from "app/components/Typography";
-  import { useState, useContext } from "react";
+  import { useState, useEffect, useContext } from "react";
   import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
   import * as utils from 'app/utils/utils';
   import React from "react";
@@ -17,7 +17,7 @@ import {
     marginBottom: "16px",
   }));
   
-  const PendingBalanceForm = () => {
+  const PendingBalanceForm = ({ selectedActivity }) => {
       const [state, setState] = useState({});
       const context = useContext(userContext)
       const [open, setOpen] = React.useState(false);
@@ -46,7 +46,7 @@ import {
         let usuario = context.user_data
         console.log("context:",usuario)
         const body = {
-          "descripcion": descripcion,
+          "nombre": descripcion,
         }
         console.log("body:",  body)
         console.log("state:", state)
@@ -60,7 +60,7 @@ import {
           body: JSON.stringify(body),
         };
         try {
-          let response = await utils.aceptarActividad(config)
+          let response = await utils.aceptarInvitacion(config)
           setLoading(false);
           if (response.error){
             setOpen(true)
@@ -76,10 +76,10 @@ import {
           console.log("response:", response)
         }
         catch (e) {
-          console.log("exception:", e)
+          console.error("exception:", e)
           setLoading(false);
           setOpen(true)
-          setErrMsg("Error:" + e)
+          setErrMsg("Error, por favor contacte a soporte!")
           setMsgType("error")
         }
         
@@ -89,6 +89,15 @@ import {
       event.persist();
       setState({ ...state, [event.target.name]: event.target.value });
     };
+
+    useEffect(() => {
+      // Actualizar el estado cuando se seleccionan datos del datatable
+      if (selectedActivity) {
+        setState({
+          descripcion: selectedActivity.evento || "",
+        });
+      }
+    }, [selectedActivity]);
   
     const {
       descripcion,
@@ -108,7 +117,7 @@ import {
               <TextField
                 type="text"
                 name="descripcion"
-                label="Activity's description"
+                label="Event's name"
                 onChange={handleChange}
                 value={descripcion || ""}
                 validators={["required"]}

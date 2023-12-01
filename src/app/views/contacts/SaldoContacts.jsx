@@ -1,5 +1,6 @@
 import { Box, styled, Typography } from "@mui/material";
 import { Breadcrumb, SimpleCard } from "app/components";
+import { useState } from "react";
 import PaginationTable from "./PaginationTable";
 import SaldoContactsForm from "./SaldoContactsForm";
 
@@ -14,6 +15,7 @@ const Container = styled("div")(({ theme }) => ({
 }));
 
 const SaldoContacts = () => {
+  const [selectedContact, setSelectedContact] = useState(null)
 
   return (
     <Container>
@@ -21,13 +23,13 @@ const SaldoContacts = () => {
         <Breadcrumb routeSegments={[{ name: "Contacts", path: "/contacts/balance" }, { name: "Balance" }]} />
       </Box>
       <SimpleCard title="Form to help contacts!">
-        <SaldoContactsForm />
+        <SaldoContactsForm selectedContact={selectedContact} />
       </SimpleCard>
       <SimpleCard title="Contact's balance">
         <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'left'}}>
           How much your contacts owe you?
         </Typography>
-        <PaginationTable />
+        <PaginationTable setSelectedContact={setSelectedContact} />
       </SimpleCard>
     </Container>
   );

@@ -6,7 +6,7 @@ import {
   import { LoadingButton } from '@mui/lab';
   import { Alert, Snackbar } from "@mui/material";
   import { Span } from "app/components/Typography";
-  import { useState, useContext } from "react";
+  import { useState, useEffect, useContext } from "react";
   import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
   import * as utils from 'app/utils/utils';
   import React from "react";
@@ -17,13 +17,24 @@ import {
     marginBottom: "16px",
   }));
   
-  const PendingBalanceForm = () => {
+  const PendingBalanceForm = ({ selectedContact }) => {
       const [state, setState] = useState({});
       const context = useContext(userContext)
       const [open, setOpen] = React.useState(false);
       const [errMsg, setErrMsg] = useState("");
       const [msgType, setMsgType] = useState("error");
       const [loading, setLoading] = useState(false);
+
+      useEffect(() => {
+        // Actualizar el estado cuando selectedContact cambia
+        if (selectedContact) {
+          setState({
+            descripcion: selectedContact.actividad || "",
+            contactEmail: selectedContact.email || "",
+            valorAPagar: selectedContact.valor_a_pagar || "",
+          });
+        }
+      }, [selectedContact]);
 
       function handleClose(_, reason) {
         if (reason === "clickaway") {
@@ -78,10 +89,10 @@ import {
           console.log("response:", response)
         }
         catch (e) {
-          console.log("exception:", e)
+          console.error("exception:", e)
           setLoading(false);
           setOpen(true)
-          setErrMsg("Error:" + e)
+          setErrMsg("Error, por favor contacte a soporte!")
           setMsgType("error")
         }
         

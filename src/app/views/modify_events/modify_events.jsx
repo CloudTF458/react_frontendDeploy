@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { Breadcrumb, SimpleCard } from "app/components";
+import { useState } from "react";
 import ModifyEventsForm from "./modify_events_form";
 import ModifyEventsTable from "./ModifyEventsTable";
 
@@ -14,6 +15,8 @@ const Container = styled("div")(({ theme }) => ({
 }));
 
 const AppForm = () => {
+  const [selectedEvent, setSelectedEvent] = useState(null)
+
   return (
     <Container>
       <Box className="breadcrumb">
@@ -26,10 +29,10 @@ const AppForm = () => {
             NOTE: if you don't want to modify event's name or another field, just copy 
             and past the same value in the corresponding field. Please don't type blank spaces.
           </Typography>
-          <ModifyEventsForm />
+          <ModifyEventsForm selectedEvent={selectedEvent} />
         </SimpleCard>
         <SimpleCard title="Created Events">
-          <ModifyEventsTable />
+          <ModifyEventsTable setSelectedEvent={setSelectedEvent} />
         </SimpleCard>
       </Stack>
     </Container>

@@ -122,6 +122,7 @@ export const createUser = async (config) => {
     "https://django-eventos.azurewebsites.net/crear/usuario/",
     config
   );
+  console.log("data:",data)
   return data.json();
 };
 
@@ -215,7 +216,45 @@ export const crearEvento = async (config) => {
 */
 export const verSaldosPendientes = async (config) => {
   const data = await fetch(
-    "https://django-eventos.azurewebsites.net/view/pending-balance/",
+    "http://127.0.0.1:8000/view/pending-balance/",
+    config
+  );
+  return data.json();
+};
+
+/**
+* Para ver invitaciones enviadas por el usuario.
+* @param {JSON} config JSON = {
+    method: "GET",
+    headers: {
+      Authorization: `Token ${data.token}`,
+      "Content-type": "application/json",
+    },
+  };
+* @returns 
+*/
+export const verInvitacionesPendientes = async (config) => {
+  const data = await fetch(
+    "http://127.0.0.1:8000/view/sent/invitations/",
+    config
+  );
+  return data.json();
+};
+
+/**
+* Para ver invitaciones enviadas al usuario.
+* @param {JSON} config JSON = {
+    method: "GET",
+    headers: {
+      Authorization: `Token ${data.token}`,
+      "Content-type": "application/json",
+    },
+  };
+* @returns 
+*/
+export const verTusInvitacionesPendientes = async (config) => {
+  const data = await fetch(
+    "http://127.0.0.1:8000/view/your/invitations/",
     config
   );
   return data.json();
@@ -393,7 +432,27 @@ export const eliminarParticipante = async (config) => {
 */
 export const agregarParticipante = async (config) => {
   const data = await fetch(
-    "https://django-eventos.azurewebsites.net/add/contact/activity/",
+    "http://127.0.0.1:8000/add/contact/activity/",
+    config
+  );
+  return data.json();
+};
+
+/**
+* Manda una invitacion a un contacto para un evento.
+* @param {JSON} config JSON = {
+    method: "POST",
+    headers: {
+      Authorization: `Token ${data.token}`,
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(body),
+  };
+* @returns 
+*/
+export const enviarInvitacion = async (config) => {
+  const data = await fetch(
+    "http://127.0.0.1:8000/add/contact/event/",
     config
   );
   return data.json();
@@ -449,9 +508,9 @@ export const verTodasLosParticipantesDeEventos = async (config) => {
   };
 * @returns 
 */
-export const aceptarActividad = async (config) => {
+export const aceptarInvitacion = async (config) => {
   const data = await fetch(
-    "https://django-eventos.azurewebsites.net/accept/activity/",
+    "http://127.0.0.1:8000/accept/invitation/",
     config
   );
   return data.json();

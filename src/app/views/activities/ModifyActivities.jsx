@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { Breadcrumb, SimpleCard } from "app/components";
+import { useState } from "react";
 import ModifyActivitiesForm from "./ModifyActivitiesForm";
 import ModifyActivitiesTable from "./ModifyActivitiesTable";
 
@@ -14,6 +15,7 @@ const Container = styled("div")(({ theme }) => ({
 }));
 
 const CrearActividad = () => {
+  const [selectedActivity, setSelectedActivity] = useState(null)
 
   return (
     <Container>
@@ -27,11 +29,11 @@ const CrearActividad = () => {
             NOTE: if you don't want to modify activity's description or another field, just copy 
             and past the same value in the corresponding field. Please don't type blank spaces.
           </Typography>
-          <ModifyActivitiesForm />
+          <ModifyActivitiesForm selectedActivity={selectedActivity} />
         </SimpleCard>
 
         <SimpleCard title="My created activities">
-          <ModifyActivitiesTable/>
+          <ModifyActivitiesTable setSelectedActivity={setSelectedActivity} />
         </SimpleCard>
       </Stack>
     </Container>

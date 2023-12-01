@@ -124,9 +124,9 @@ import {
         console.log("response:", response)
       }
       catch (e) {
-        console.log("exception:", e)
+        console.error("exception:", e)
         setOpen(true)
-        setErrMsg("Error:" + e)
+        setErrMsg("Error, por favor contacte a soporte!")
         setMsgType("error")
       }
     };
@@ -138,14 +138,14 @@ import {
             {errMsg}
           </Alert>
         </Snackbar>
-        <StyledTable>
+        <StyledTable responsive>
           <TableHead>
             <TableRow>
               <TableCell align="left">Description</TableCell>
               <TableCell align="center">Valor</TableCell>
-              <TableCell align="center">Event Name</TableCell>
-              <TableCell align="center">Event Type</TableCell>
-              <TableCell align="right">Remove Activity</TableCell>
+              <TableCell align="center">Event<br />Name</TableCell>
+              <TableCell align="center">Event<br />Type</TableCell>
+              <TableCell align="right">Remove<br />Activity</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -156,7 +156,7 @@ import {
                   <TableCell align="left">{activity.actividad}</TableCell>
                   <TableCell align="center">{activity.actividad_valor}</TableCell>
                   <TableCell align="center">{activity.evento}</TableCell>
-                  <TableCell align="center">{activity.evento_tipo}</TableCell>
+                  <TableCell align="center">{activity.actividad_usuario_propietario}</TableCell>
                   <TableCell align="right">
                     <IconButton onClick={() => handleDeleteActivity(activity)}>
                       <Icon color="error">close</Icon>

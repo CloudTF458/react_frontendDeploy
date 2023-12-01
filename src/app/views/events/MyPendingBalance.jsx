@@ -1,5 +1,6 @@
 import { Box, styled, Stack } from "@mui/material";
 import { Breadcrumb, SimpleCard } from "app/components";
+import { useState } from "react";
 import PendingBalanceTable from "./PendingBalanceTable";
 import PendingBalanceForm from "./PendingBalanceForm";
 
@@ -14,7 +15,8 @@ const Container = styled("div")(({ theme }) => ({
 }));
 
 const MyPendingBalance = () => {
-  
+  const [selectedBalance, setSelectedBalance] = useState(null)
+
   return (
     <Container>
       <Box className="breadcrumb">
@@ -22,11 +24,11 @@ const MyPendingBalance = () => {
       </Box>
     <Stack spacing={3}>
       <SimpleCard title="Payment form">
-        <PendingBalanceForm />
+        <PendingBalanceForm selectedBalance={selectedBalance} />
       </SimpleCard>
 
       <SimpleCard title="Pending balance">
-        <PendingBalanceTable />
+        <PendingBalanceTable setSelectedBalance={setSelectedBalance} />
       </SimpleCard>
     </Stack>
     </Container>

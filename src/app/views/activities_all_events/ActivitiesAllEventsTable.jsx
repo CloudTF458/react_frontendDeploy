@@ -110,14 +110,14 @@ const PendingBalanceTable = () => {
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable>
+      <StyledTable responsive>
         <TableHead>
           <TableRow>
             <TableCell align="center">Activity</TableCell>
-            <TableCell align="center">Activity's Owner</TableCell>
+            <TableCell align="center">Activity's<br />Owner</TableCell>
             <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Event's Owner</TableCell>
-            <TableCell align="center">Event's type</TableCell>
+            <TableCell align="center">Event's<br />Owner</TableCell>
+            <TableCell align="center">Event's<br />type</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

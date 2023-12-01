@@ -129,9 +129,9 @@ import {
         console.log("response:", response)
       }
       catch (e) {
-        console.log("exception:", e)
+        console.error("exception:", e)
         setOpen(true)
-        setErrMsg("Error:" + e)
+        setErrMsg("Error, por favor contacte a soporte!")
         setMsgType("error")
       }
     };
@@ -143,14 +143,14 @@ import {
             {errMsg}
           </Alert>
         </Snackbar>
-        <StyledTable>
+        <StyledTable responsive>
           <TableHead>
             <TableRow>
-              <TableCell align="left">Full Name</TableCell>
+              <TableCell align="center">Full<br />Name</TableCell>
               <TableCell align="center">Email</TableCell>
               <TableCell align="center">Username</TableCell>
               <TableCell align="center">Avatar</TableCell>
-              <TableCell align="right">Remove Contact</TableCell>
+              <TableCell align="center">Remove<br />Contact</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

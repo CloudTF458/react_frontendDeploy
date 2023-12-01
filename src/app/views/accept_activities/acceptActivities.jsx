@@ -1,5 +1,6 @@
 import { Box, styled, Stack } from "@mui/material";
 import { Breadcrumb, SimpleCard } from "app/components";
+import { useState } from "react";
 import AcceptActivitiesTable from "./acceptActivitiesTable";
 import AcceptActivitiesForm from "./acceptActivitiesForm";
 
@@ -14,19 +15,20 @@ const Container = styled("div")(({ theme }) => ({
 }));
 
 const MyPendingBalance = () => {
-  
+  const [selectedActivity, setSelectedActivity] = useState(null)
+
   return (
     <Container>
       <Box className="breadcrumb">
-        <Breadcrumb routeSegments={[{ name: "Events", path: "/accept/activities" }, { name: "Accept" }]} />
+        <Breadcrumb routeSegments={[{ name: "Events", path: "/accept/invitation" }, { name: "Accept" }]} />
       </Box>
     <Stack spacing={3}>
-      <SimpleCard title="Accept Activities Form">
-        <AcceptActivitiesForm />
+      <SimpleCard title="Accept Invitations Form">
+        <AcceptActivitiesForm selectedActivity={selectedActivity} />
       </SimpleCard>
 
-      <SimpleCard title="Activities's invitations">
-        <AcceptActivitiesTable />
+      <SimpleCard title="All my invitations">
+        <AcceptActivitiesTable setSelectedActivity={setSelectedActivity} />
       </SimpleCard>
     </Stack>
     </Container>

@@ -1,6 +1,8 @@
 import {
   Box,
   styled,
+  Icon,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -22,7 +24,7 @@ const StyledTable = styled(Table)(({ theme }) => ({
   },
 }));
 
-const PaginationTable = () => {
+const PaginationTable = ({ setSelectedContact }) => {
   
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -70,6 +72,10 @@ const PaginationTable = () => {
     setPage(0);
   };
 
+  const handleEditContact = (contact) => {
+    setSelectedContact(contact)
+  }
+
   if (contactList == null){
     return <p>No data found in contact's list!.</p>;
   }
@@ -83,11 +89,11 @@ const PaginationTable = () => {
           <TableRow>
             <TableCell align="left">Pending Balance</TableCell>
             <TableCell align="center">Participant's username</TableCell>
-            <TableCell align="center">Participant's Email</TableCell>
             <TableCell align="center">Activity</TableCell>
             <TableCell align="center">Activity's Owner</TableCell>
             <TableCell align="center">Event</TableCell>
             <TableCell align="center">Accepted</TableCell>
+            <TableCell align="right">Fetch Data</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -97,11 +103,15 @@ const PaginationTable = () => {
               <TableRow key={index}>
                 <TableCell align="left">${contact.saldo_pendiente}</TableCell>
                 <TableCell align="center">{contact.nombre_usuario}</TableCell>
-                <TableCell align="center">{contact.email}</TableCell>
                 <TableCell align="center">{contact.actividad}</TableCell>
                 <TableCell align="center">{contact.actividad_usuario_propietario}</TableCell>
                 <TableCell align="center">{contact.evento}</TableCell>
                 <TableCell align="center">{contact.aceptado}</TableCell>
+                <TableCell align="right">
+                  <IconButton onClick={() => handleEditContact(contact)}>
+                    <Icon color="info">edit</Icon>
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>

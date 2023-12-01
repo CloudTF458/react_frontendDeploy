@@ -67,11 +67,11 @@ const PendingBalanceTable = () => {
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable>
+      <StyledTable responsive>
         <TableHead>
           <TableRow>
             <TableCell align="center">Contact</TableCell>
-            <TableCell align="center">Pending Balance</TableCell>
+            <TableCell align="center">Pending<br />Balance</TableCell>
             <TableCell align="center">Activity</TableCell>
             <TableCell align="center">Event</TableCell>
           </TableRow>

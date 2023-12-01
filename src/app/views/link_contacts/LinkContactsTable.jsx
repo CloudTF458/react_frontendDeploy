@@ -27,7 +27,7 @@ const StyledTable = styled(Table)(({ theme }) => ({
   },
 }));
 
-const PendingBalanceTable = () => {
+const PendingBalanceTable = ({ setSelectedData }) => {
   const context = useContext(userContext);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -107,9 +107,9 @@ const PendingBalanceTable = () => {
       console.log("response:", response)
     }
     catch (e) {
-      console.log("exception:", e)
+      console.error("exception:", e)
       setOpen(true)
-      setErrMsg("Error:" + e)
+      setErrMsg("Error, por favor contacte a soporte!")
       setMsgType("error")
     }
   };
@@ -119,6 +119,10 @@ const PendingBalanceTable = () => {
       return;
     }
     setOpen(false);
+  }
+
+  const handleFetch = (data) => {
+    setSelectedData(data)
   }
 
   if (createdEvents == null){
@@ -134,16 +138,17 @@ const PendingBalanceTable = () => {
             {errMsg}
           </Alert>
       </Snackbar>
-      <StyledTable>
+      <StyledTable responsive>
         <TableHead>
           <TableRow>
             <TableCell align="center">Activity</TableCell>
             <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Participantion value</TableCell>
-            <TableCell align="center">Participant's Username</TableCell>
-            <TableCell align="center">Event's Creator</TableCell>
+            <TableCell align="center">Participantion<br />value</TableCell>
+            <TableCell align="center">Participant's<br />Username</TableCell>
+            <TableCell align="center">Event's<br />Creator</TableCell>
             <TableCell align="center">Accepted</TableCell>
-            <TableCell align="right">Remove</TableCell>
+            <TableCell align="center">Remove</TableCell>
+            <TableCell align="right">Fetch Data</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -157,11 +162,16 @@ const PendingBalanceTable = () => {
                 <TableCell align="center">{events.usuario_participante}</TableCell>
                 <TableCell align="center">{events.evento_creador}</TableCell>
                 <TableCell align="center">{events.aceptado}</TableCell>
+                <TableCell align="center">
+                  <IconButton onClick={() => handleDeleteParticipant(events)}>
+                    <Icon color="error">close</Icon>
+                  </IconButton>
+                </TableCell>
                 <TableCell align="right">
-                    <IconButton onClick={() => handleDeleteParticipant(events)}>
-                      <Icon color="error">close</Icon>
-                    </IconButton>
-                  </TableCell>
+                  <IconButton onClick={() => handleFetch(events)}>
+                    <Icon color="info">edit</Icon>
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>

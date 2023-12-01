@@ -17,26 +17,17 @@ import {
   import { userContext } from "../../contexts/user-context"
   
   const StyledTable = styled(Table)(() => ({
-
     whiteSpace: "pre",
     "& thead": {
       "& tr": { "& th": { paddingLeft: 0, paddingRight: 0 } },
     },
     "& tbody": {
-      "& tr": { "& td": { paddingLeft: 0, textTransform: "normal" } },
+      "& tr": { "& td": { paddingLeft: 0, textTransform: "normal"}},
     },
   }));
+
   
-  // const contactList = [
-  //   {
-  //     nombre: "Pepito Perez",
-  //     email: "pepitoperez@gmail.com",
-  //     apodo: "Pepito400",
-  //     avatar: "cat.png",
-  //   },
-  // ];
-  
-  const PaginationActivitiesTable = () => {
+  const PaginationActivitiesTable = ({ setSelectedActivity }) => {
     const context = useContext(userContext);
     const [activitiesList, setActivitiesList] = useState([]);
   
@@ -124,28 +115,32 @@ import {
         console.log("response:", response)
       }
       catch (e) {
-        console.log("exception:", e)
+        console.error("exception:", e)
         setOpen(true)
-        setErrMsg("Error:" + e)
+        setErrMsg("Error, por favor contacte a soporte!")
         setMsgType("error")
       }
     };
+
+    const handleFetch = (data) => {
+      setSelectedActivity(data)
+    }
   
     return (
-      <Box width="100%" overflow="auto">
+      <Box width="100%" overflow-x="auto">
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity={msgType} sx={{ width: "100%" }} variant="filled">
             {errMsg}
           </Alert>
         </Snackbar>
-        <StyledTable>
+        <StyledTable responsive>
           <TableHead>
             <TableRow>
-              <TableCell align="left">Description</TableCell>
+              <TableCell align="center">Description</TableCell>
               <TableCell align="center">Valor</TableCell>
-              <TableCell align="center">Event Name</TableCell>
-              <TableCell align="center">Event Type</TableCell>
-              <TableCell align="right">Remove Activity</TableCell>
+              <TableCell align="center">Event<br />Name</TableCell>
+              <TableCell align="center">Event<br />Type</TableCell>
+              <TableCell align="center">Remove<br />Activity</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -156,10 +151,15 @@ import {
                   <TableCell align="left">{activity.actividad}</TableCell>
                   <TableCell align="center">{activity.actividad_valor}</TableCell>
                   <TableCell align="center">{activity.evento}</TableCell>
-                  <TableCell align="center">{activity.evento_tipo}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">{activity.actividad_usuario_propietario}</TableCell>
+                  <TableCell align="center">
                     <IconButton onClick={() => handleDeleteActivity(activity)}>
                       <Icon color="error">close</Icon>
+                    </IconButton>
+                  </TableCell>
+                  <TableCell align="right">
+                    <IconButton onClick={() => handleFetch(activity)}>
+                      <Icon color="info">edit</Icon>
                     </IconButton>
                   </TableCell>
                 </TableRow>

@@ -1,6 +1,8 @@
 import {
   Box,
   styled,
+  Icon,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -22,12 +24,12 @@ const StyledTable = styled(Table)(({ theme }) => ({
   },
 }));
 
-const PendingBalanceTable = () => {
+const PendingBalanceTable = ({ setSelectedActivity }) => {
   
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const context = useContext(userContext);
-  const [pendingBalanceList, setPendingBalanceList] = useState([]);
+  const [eventList, setEventList] = useState([]);
 
   useEffect(() => {
     const configLista = async () => {
@@ -44,16 +46,16 @@ const PendingBalanceTable = () => {
       };
 
       try {
-        const response = await utils.verSaldosPendientes(config);
-        console.log("response:", response.eventos_actividades)
-        await setPendingBalanceList(response.eventos_actividades);
+        const response = await utils.verTusInvitacionesPendientes(config);
+        console.error("response:", response.eventos)
+        await setEventList(response.eventos);
       } catch (error) {
         console.error("Error:", error);
       }
     };
 
     configLista();
-  }, [context.user_data, context.token, pendingBalanceList]);
+  }, [context.user_data, context.token, eventList]);
 
   const handleChangePage = (_, newPage) => {
     setPage(newPage);
@@ -64,34 +66,44 @@ const PendingBalanceTable = () => {
     setPage(0);
   };
 
-  if (pendingBalanceList == null){
+  const handleFetch = (data) => {
+    setSelectedActivity(data)
+  }
+
+  if (eventList == null){
     return <p>No data found!.</p>;
   }
-  else if (pendingBalanceList.length === 0) {
+  else if (eventList.length === 0) {
     return <p>No data found!.</p>;
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable>
+      <StyledTable responsive>
         <TableHead>
           <TableRow>
-            <TableCell align="center">Activity</TableCell>
             <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Pending balance</TableCell>
-            <TableCell align="center">Total balance</TableCell>
+            <TableCell align="center">Participant</TableCell>
+            <TableCell align="center">Creator</TableCell>
+            <TableCell align="center">Pending<br />balance</TableCell>
+            <TableCell align="center">Total<br />balance</TableCell>
             <TableCell align="center">Accepted</TableCell>
+            <TableCell align="right">Fetch Data</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {pendingBalanceList
+          {eventList
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((balance, index) => (
+            .map((event, index) => (
               <TableRow key={index}>
-                <TableCell align="center">{balance.actividad}</TableCell>
-                <TableCell align="center">{balance.evento}</TableCell>
-                <TableCell align="center">${balance.saldo_pendiente}</TableCell>
-                <TableCell align="center">${balance.saldo_total}</TableCell>
-                <TableCell align="center">{balance.aceptado}</TableCell>
+                <TableCell align="center">{event.evento}</TableCell>
+                <TableCell align="center">{event.usuario_participante}</TableCell>
+                <TableCell align="center">{event.evento_creador}</TableCell>
+                <TableCell align="center">{event.aceptado}</TableCell>
+                <TableCell align="right">
+                  <IconButton onClick={() => handleFetch(event)}>
+                    <Icon color="info">edit</Icon>
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>
@@ -102,7 +114,7 @@ const PendingBalanceTable = () => {
         page={page}
         component="div"
         rowsPerPage={rowsPerPage}
-        count={pendingBalanceList.length}
+        count={eventList.length}
         onPageChange={handleChangePage}
         rowsPerPageOptions={[5, 10, 25]}
         onRowsPerPageChange={handleChangeRowsPerPage}

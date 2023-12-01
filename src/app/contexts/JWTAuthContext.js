@@ -35,7 +35,7 @@ const setSession = (accessToken) => {
 const reducer = (state, action) => {
     switch (action.type) {
         case 'INIT': {
-            const { isAuthenticated, user } = action.payload
+            const { isAuthenticated , user } = action.payload
 
             return {
                 ...state,
@@ -108,6 +108,7 @@ const AuthContext = createContext({
           payload: userDetails,
         });
     },
+
     // login: () => Promise.resolve(),
     // logout: () => { },
     // register: () => Promise.resolve(),

@@ -95,6 +95,7 @@ const JwtRegister = () => {
 
       // se registra al usuario
       let response = await utils.createUser(config)
+      console.log("response:",response)
       if (response.error){
         setOpen(true)
         setErrMsg(response.error_cause)
@@ -117,7 +118,7 @@ const JwtRegister = () => {
     } catch (e) {
       console.log(e);
       setOpen(true)
-      setErrMsg('Error:' + e)
+      setErrMsg("Error, el usuario puede que sea invalido o ya exista, si el problema persiste por favor contacte a soporte!")
       setMsgType("error")
       setLoading(false);
     }
