@@ -93,6 +93,10 @@ const SimpleForm = () => {
       setErrMsg("Error, por favor contacte a soporte!")
       setMsgType("error")
     }
+    setState({eventName:""});
+    setState({eventDescription:""});
+    setState({eventType:""});
+    setState({eventPicture:""});
   };
 
 

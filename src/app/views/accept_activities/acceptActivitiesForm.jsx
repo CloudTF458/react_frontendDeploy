@@ -82,6 +82,7 @@ import {
           setErrMsg("Error, por favor contacte a soporte!")
           setMsgType("error")
         }
+        setState({descripcion:""});
         
     };
   

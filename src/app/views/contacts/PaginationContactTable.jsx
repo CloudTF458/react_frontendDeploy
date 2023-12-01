@@ -3,7 +3,7 @@ import {
     Icon,
     IconButton,
     styled,
-    Table,
+    // Table,
     TableBody,
     TableCell,
     TableHead,
@@ -16,6 +16,8 @@ import {
   import * as utils from 'app/utils/utils';
   import { userContext } from "../../contexts/user-context";
   import React from "react";
+  import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+  import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
   
   const StyledTable = styled(Table)(() => ({
 
@@ -143,38 +145,39 @@ import {
             {errMsg}
           </Alert>
         </Snackbar>
-        <StyledTable responsive>
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">Full<br />Name</TableCell>
-              <TableCell align="center">Email</TableCell>
-              <TableCell align="center">Username</TableCell>
-              <TableCell align="center">Avatar</TableCell>
-              <TableCell align="center">Remove<br />Contact</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+
+        <Table>
+          <Thead>
+            <Tr>
+              <Th align="center">Name</Th>
+              <Th align="center">Email</Th>
+              <Th align="center">Username</Th>
+              <Th align="center">Avatar</Th>
+              <Th align="center">Remove</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             {contactList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((contact, index) => (
-                <TableRow key={index}>
-                  <TableCell align="left">{contact.nombre}</TableCell>
-                  <TableCell align="center">{contact.email}</TableCell>
-                  <TableCell align="center">{contact.apodo}</TableCell>
-                  <TableCell align="center">
+                <Tr>
+                  <Td align="left">{contact.nombre}</Td>
+                  <Td align="center">{contact.email}</Td>
+                  <Td align="center">{contact.apodo}</Td>
+                  <Td align="center">
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <Avatar src={contact.avatar} />
                     </div>
-                  </TableCell>
-                  <TableCell align="right">
+                  </Td>
+                  <Td align="right">
                     <IconButton onClick={() => handleDeleteContact(contact)}>
                       <Icon color="error">close</Icon>
                     </IconButton>
-                  </TableCell>
-                </TableRow>
+                  </Td>
+                </Tr>
               ))}
-          </TableBody>
-        </StyledTable>
+          </Tbody>
+        </Table>
   
         <TablePagination
           sx={{ px: 2 }}

@@ -93,7 +93,8 @@ import {
           setErrMsg("Error, por favor contacte a soporte!")
           setMsgType("error")
         }
-        
+        setState({descripcion:""});
+        setState({valorAPagar:""});
     };
   
     const handleChange = (event) => {

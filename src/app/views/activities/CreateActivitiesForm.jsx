@@ -79,6 +79,9 @@ import {
         setErrMsg("Error, por favor contacte a soporte!")
         setMsgType("error")
       }
+      setState({activityValor:""});
+      setState({activityDescription:""});
+      setState({eventName:""});
     };
   
   

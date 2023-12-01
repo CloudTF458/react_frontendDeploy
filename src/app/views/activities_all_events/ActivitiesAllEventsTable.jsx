@@ -1,7 +1,7 @@
 import {
   Box,
   styled,
-  Table,
+  // Table,
   TableBody,
   TableCell,
   TableHead,
@@ -11,6 +11,8 @@ import {
 import { useState, useEffect, useContext } from "react";
 import * as utils from 'app/utils/utils';
 import { userContext } from "../../contexts/user-context";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const StyledTable = styled(Table)(({ theme }) => ({
   whiteSpace: "pre",
@@ -110,30 +112,30 @@ const PendingBalanceTable = () => {
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable responsive>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Activity</TableCell>
-            <TableCell align="center">Activity's<br />Owner</TableCell>
-            <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Event's<br />Owner</TableCell>
-            <TableCell align="center">Event's<br />type</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {allActivitiesEvents
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((evento, index) => (
-              <TableRow key={index}>
-                <TableCell align="center">{evento.actividad_descripcion}</TableCell>
-                <TableCell align="center">{evento.actividad_usuario_propietario}</TableCell>
-                <TableCell align="center">{evento.evento}</TableCell>
-                <TableCell align="center">{evento.evento_creador}</TableCell>
-                <TableCell align="center">{evento.evento_tipo}</TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </StyledTable>
+      <Table>
+          <Thead>
+            <Tr>
+              <Th align="center">Activity</Th>
+              <Th align="center">A-Creator</Th>
+              <Th align="center">Event</Th>
+              <Th align="center">E-Creator</Th>
+              <Th align="center">E-type</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {allActivitiesEvents
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((evento, index) => (
+                <Tr>
+                  <Td align="center">{evento.actividad_descripcion}</Td>
+                  <Td align="center">{evento.actividad_usuario_propietario}</Td>
+                  <Td align="center">{evento.evento}</Td>
+                  <Td align="center">{evento.evento_creador}</Td>
+                  <Td align="center">{evento.evento_tipo}</Td>
+                </Tr>
+              ))}
+          </Tbody>
+        </Table>
 
       <TablePagination
         sx={{ px: 2 }}

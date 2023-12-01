@@ -108,6 +108,10 @@ const SimpleForm = ({ userData }) => {
       setErrMsg("User updated successful!")
       setMsgType("success")
     }
+    setState({apodo:""});
+    setState({nombre:""});
+    setState({password:""});
+    setState({avatar:""});
     navigate("/")
   };
 
