@@ -1,7 +1,7 @@
 import {
   Box,
   styled,
-  Table,
+  // Table,
   TableBody,
   TableCell,
   TableHead,
@@ -11,6 +11,8 @@ import {
 import { useState, useEffect, useContext } from "react";
 import * as utils from 'app/utils/utils';
 import { userContext } from "../../contexts/user-context";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const StyledTable = styled(Table)(({ theme }) => ({
   whiteSpace: "pre",
@@ -67,28 +69,28 @@ const PendingBalanceTable = () => {
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable responsive>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Contact</TableCell>
-            <TableCell align="center">Pending<br />Balance</TableCell>
-            <TableCell align="center">Activity</TableCell>
-            <TableCell align="center">Event</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {allContactsPendings
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((evento, index) => (
-              <TableRow key={index}>
-                <TableCell align="center">{evento.contacto}</TableCell>
-                <TableCell align="center">{evento.saldo_pendiente}</TableCell>
-                <TableCell align="center">{evento.actividad}</TableCell>
-                <TableCell align="center">{evento.evento}</TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </StyledTable>
+      <Table>
+          <Thead>
+            <Tr>
+              <Th align="center">Contact</Th>
+              <Th align="center">Pending</Th>
+              <Th align="center">Activity</Th>
+              <Th align="center">Event</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {allContactsPendings
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((evento, index) => (
+                <Tr>
+                  <Td align="center">{evento.contacto}</Td>
+                  <Td align="center">{evento.saldo_pendiente}</Td>
+                  <Td align="center">{evento.actividad}</Td>
+                  <Td align="center">{evento.evento}</Td>
+                </Tr>
+              ))}
+          </Tbody>
+        </Table>
 
       <TablePagination
         sx={{ px: 2 }}

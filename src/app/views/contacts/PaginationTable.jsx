@@ -3,7 +3,7 @@ import {
   styled,
   Icon,
   IconButton,
-  Table,
+  // Table,
   TableBody,
   TableCell,
   TableHead,
@@ -13,6 +13,8 @@ import {
 import { useState, useEffect, useContext } from "react";
 import * as utils from 'app/utils/utils';
 import { userContext } from "../../contexts/user-context";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const StyledTable = styled(Table)(({ theme }) => ({
   whiteSpace: "pre",
@@ -84,38 +86,38 @@ const PaginationTable = ({ setSelectedContact }) => {
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable>
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Pending Balance</TableCell>
-            <TableCell align="center">Participant's username</TableCell>
-            <TableCell align="center">Activity</TableCell>
-            <TableCell align="center">Activity's Owner</TableCell>
-            <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Accepted</TableCell>
-            <TableCell align="right">Fetch Data</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th align="center">Pending</Th>
+            <Th align="center">Participant</Th>
+            <Th align="center">Activity</Th>
+            <Th align="center">A-Creator</Th>
+            <Th align="center">Event</Th>
+            <Th align="center">Accepted</Th>
+            <Th align="center">Fetch Data</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           {contactList
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((contact, index) => (
-              <TableRow key={index}>
-                <TableCell align="left">${contact.saldo_pendiente}</TableCell>
-                <TableCell align="center">{contact.nombre_usuario}</TableCell>
-                <TableCell align="center">{contact.actividad}</TableCell>
-                <TableCell align="center">{contact.actividad_usuario_propietario}</TableCell>
-                <TableCell align="center">{contact.evento}</TableCell>
-                <TableCell align="center">{contact.aceptado}</TableCell>
-                <TableCell align="right">
+              <Tr>
+                <Td align="center">${contact.saldo_pendiente}</Td>
+                <Td align="center">{contact.nombre_usuario}</Td>
+                <Td align="center">{contact.actividad}</Td>
+                <Td align="center">{contact.actividad_usuario_propietario}</Td>
+                <Td align="center">{contact.evento}</Td>
+                <Td align="center">{contact.aceptado}</Td>
+                <Td align="center">
                   <IconButton onClick={() => handleEditContact(contact)}>
                     <Icon color="info">edit</Icon>
                   </IconButton>
-                </TableCell>
-              </TableRow>
+                </Td>
+              </Tr>
             ))}
-        </TableBody>
-      </StyledTable>
+        </Tbody>
+      </Table>
 
       <TablePagination
         sx={{ px: 2 }}
