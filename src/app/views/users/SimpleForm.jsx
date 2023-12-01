@@ -11,6 +11,7 @@ import { LoadingButton } from '@mui/lab';
 import { Alert, Snackbar } from "@mui/material";
 import { Span } from "app/components/Typography";
 import { useEffect, useState, useContext } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import * as utils from 'app/utils/utils';
 import { useNavigate } from "react-router-dom";
@@ -126,15 +127,101 @@ const SimpleForm = ({ userData }) => {
 
   return (
     <div>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={msgType} sx={{ width: "100%" }} variant="filled">
-          {errMsg}
-        </Alert>
-      </Snackbar>
-      <ValidatorForm onSubmit={handleSubmit} onError={() => null}>
-        <Grid container spacing={6}>
-          <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mt: 2 }}>
+      <BrowserView>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity={msgType} sx={{ width: "100%" }} variant="filled">
+              {errMsg}
+            </Alert>
+          </Snackbar>
+          <ValidatorForm onSubmit={handleSubmit} onError={() => null}>
+            <Grid container spacing={6}>
+              <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mt: 2 }}>
 
+                <TextField
+                  type="text"
+                  name="nombre"
+                  label="First name"
+                  onChange={handleChange}
+                  value={nombre || "" + userData.nombres}
+                  style={{ textAlign: 'center' }}
+                  validators={["required"]}
+                  errorMessages={["this field is required"]}
+                />
+
+                <TextField
+                  type="text"
+                  name="apodo"
+                  id="standard-basic"
+                  value={apodo || "" + userData.apodo}
+                  onChange={handleChange}
+                  label="Username"
+                  disabled={true}
+                  style={{ textAlign: 'center' }}
+                  // validators={["required", "minStringLength: 4", "maxStringLength: 9"]}
+                  // errorMessages={["this field is required"]}
+                />
+
+                <TextField
+                  name="password"
+                  type="password"
+                  label="password"
+                  value={password || "" + userData.password}
+                  onChange={handleChange}
+                  disabled={true}
+                  style={{ textAlign: 'center' }}
+                  validators={["required"]}
+                  errorMessages={["this field is required"]}
+                />
+
+                <FormControlLabel
+                    label="Active/Inactive"
+                    control={
+                    <Switch
+                        color="primary"
+                        value={is_active || userData.is_active}
+                        checked={state.activo}
+                        onChange={handleSwitch("activo")}
+                    />
+                    }
+                />
+              </Grid>
+
+              <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mt: 2 }}>
+                <TextField
+                    name="avatar"
+                    type="text"
+                    label="Avatar"
+                    value={avatar || "" + userData.foto}
+                    onChange={handleChange}
+                    style={{ textAlign: 'center' }}
+                    validators={["required"]}
+                    errorMessages={["this field is required"]}
+                    />
+                
+                <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'center'}}>
+                  Please, insert a valid image URL.
+                </Typography>
+
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Avatar src={context.user_data.foto} sx= {{ mt: 2 }} style={{ width: imgSize, height: imgSize }}/>
+                </div>
+
+              </Grid>
+            </Grid>
+
+            <LoadingButton color="primary" variant="contained" type="submit" loading={loading} sx= {{ mt: 2 }}>
+              <Icon>send</Icon>
+              <Span sx={{ pl: 1, textTransform: "capitalize" }}>Update User</Span>
+            </LoadingButton>
+          </ValidatorForm>
+      </BrowserView>
+      <MobileView>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity={msgType} sx={{ width: "100%" }} variant="filled">
+              {errMsg}
+            </Alert>
+          </Snackbar>
+          <ValidatorForm onSubmit={handleSubmit} onError={() => null}>
             <TextField
               type="text"
               name="nombre"
@@ -182,9 +269,6 @@ const SimpleForm = ({ userData }) => {
                 />
                 }
             />
-          </Grid>
-
-          <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mt: 2 }}>
             <TextField
                 name="avatar"
                 type="text"
@@ -203,15 +287,13 @@ const SimpleForm = ({ userData }) => {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Avatar src={context.user_data.foto} sx= {{ mt: 2 }} style={{ width: imgSize, height: imgSize }}/>
             </div>
-
-          </Grid>
-        </Grid>
-
-        <LoadingButton color="primary" variant="contained" type="submit" loading={loading}>
-          <Icon>send</Icon>
-          <Span sx={{ pl: 1, textTransform: "capitalize" }}>Update User</Span>
-        </LoadingButton>
-      </ValidatorForm>
+            
+            <LoadingButton color="primary" variant="contained" type="submit" loading={loading} sx= {{ mt: 2 }}>
+              <Icon>send</Icon>
+              <Span sx={{ pl: 1, textTransform: "capitalize" }}>Update User</Span>
+            </LoadingButton>
+          </ValidatorForm>
+      </MobileView>
     </div>
   );
 };

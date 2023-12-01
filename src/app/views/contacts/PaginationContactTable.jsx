@@ -161,7 +161,7 @@ import {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((contact, index) => (
                 <Tr>
-                  <Td align="left">{contact.nombre}</Td>
+                  <Td align="center">{contact.nombre}</Td>
                   <Td align="center">{contact.email}</Td>
                   <Td align="center">{contact.apodo}</Td>
                   <Td align="center">
@@ -169,7 +169,7 @@ import {
                       <Avatar src={contact.avatar} />
                     </div>
                   </Td>
-                  <Td align="right">
+                  <Td align="center">
                     <IconButton onClick={() => handleDeleteContact(contact)}>
                       <Icon color="error">close</Icon>
                     </IconButton>

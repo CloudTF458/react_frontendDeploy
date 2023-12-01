@@ -419,6 +419,26 @@ export const eliminarParticipante = async (config) => {
 };
 
 /**
+* Elimina un participante de un evento
+* @param {JSON} config JSON = {
+    method: "POST",
+    headers: {
+      Authorization: `Token ${data.token}`,
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(body),
+  };
+* @returns 
+*/
+export const eliminarParticipanteEvento = async (config) => {
+  const data = await fetch(
+    "http://127.0.0.1:8000/remove/contact/event/",
+    config
+  );
+  return data.json();
+};
+
+/**
 * Agrega un participante a una actividad
 * @param {JSON} config JSON = {
     method: "POST",

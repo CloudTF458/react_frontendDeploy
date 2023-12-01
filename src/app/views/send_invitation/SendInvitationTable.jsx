@@ -9,6 +9,8 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import { useState, useEffect, useContext } from "react";
 import * as utils from 'app/utils/utils';
@@ -32,6 +34,10 @@ const PendingBalanceTable = ({ setSelectedData }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [createdEvents, setCreatedEvents] = useState([])
+
+  const [open, setOpen] = React.useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const [msgType, setMsgType] = useState("error");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,6 +74,55 @@ const PendingBalanceTable = ({ setSelectedData }) => {
     setPage(0);
   };
 
+  const handleDelete  = async (event) => {
+    console.log("Datos del participante a desvincular:", event);
+    // Se elimina al participante
+    let usuario = context.user_data
+    console.log("context:",usuario)
+    const body = {
+      "nombre": event.evento,
+      "email_contacto": event.email_participante
+    }
+    console.log("body:",  body)
+
+    const config = {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${context.token}`,
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    try {
+      let response = await utils.eliminarParticipanteEvento(config)
+      if (response.error){
+        setOpen(true)
+        setErrMsg(`Error: ${JSON.stringify(response.error_cause)}`)
+        setMsgType("error")
+        return ;
+      }
+      else {
+        setOpen(true)
+        setErrMsg("Participant deleted successfully!")
+        setMsgType("success")
+      }
+      console.log("response:", response)
+    }
+    catch (e) {
+      console.error("exception:", e)
+      setOpen(true)
+      setErrMsg("Error, por favor contacte a soporte!")
+      setMsgType("error")
+    }
+  };
+
+  function handleClose(_, reason) {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  }
+
   const handleFetch = (data) => {
     setSelectedData(data)
   }
@@ -80,6 +135,12 @@ const PendingBalanceTable = ({ setSelectedData }) => {
   }
   return (
     <Box width="100%" overflow="auto">
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity={msgType} sx={{ width: "100%" }} variant="filled">
+            {errMsg}
+          </Alert>
+      </Snackbar>
+
       <Table>
         <Thead>
           <Tr>
@@ -87,7 +148,7 @@ const PendingBalanceTable = ({ setSelectedData }) => {
             <Th align="center">Participant</Th>
             <Th align="center">E-Creator</Th>
             <Th align="center">Accepted</Th>
-            <Th align="right">Fetch</Th>
+            <Th align="center">Fetch</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -99,7 +160,12 @@ const PendingBalanceTable = ({ setSelectedData }) => {
                 <Td align="center">{events.usuario_participante}</Td>
                 <Td align="center">{events.evento_creador}</Td>
                 <Td align="center">{events.aceptado}</Td>
-                <Td align="right">
+                <Td align="center">
+                  <IconButton onClick={() => handleDelete(events)}>
+                    <Icon color="error">close</Icon>
+                  </IconButton>
+                </Td>
+                <Td align="center">
                   <IconButton onClick={() => handleFetch(events)}>
                     <Icon color="info">edit</Icon>
                   </IconButton>

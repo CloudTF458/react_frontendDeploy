@@ -145,7 +145,7 @@ const PendingBalanceTable = ({ setSelectedData }) => {
             <Th>Participant</Th>
             <Th>E-Creator</Th>
             <Th>Accepted</Th>
-            <Th>Remove</Th>
+            {/* <Th>Remove</Th> */}
             <Th>Fetch Data</Th>
           </Tr>
         </Thead>
@@ -160,11 +160,11 @@ const PendingBalanceTable = ({ setSelectedData }) => {
                 <Td align="center">{events.usuario_participante}</Td>
                 <Td align="center">{events.evento_creador}</Td>
                 <Td align="center">{events.aceptado}</Td>
-                <Td align="center">
+                {/* <Td align="center">
                   <IconButton onClick={() => handleDeleteParticipant(events)}>
                     <Icon color="error">close</Icon>
                   </IconButton>
-                </Td>
+                </Td> */}
                 <Td align="center">
                   <IconButton onClick={() => handleFetch(events)}>
                     <Icon color="info">edit</Icon>
