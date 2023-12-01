@@ -3,7 +3,7 @@ import {
   Icon,
   IconButton,
   styled,
-  Table,
+  // Table,
   TableBody,
   TableCell,
   TableHead,
@@ -14,6 +14,8 @@ import { useState, useEffect, useContext } from "react";
 import * as utils from 'app/utils/utils';
 import { userContext } from "../../contexts/user-context";
 import React from "react";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const StyledTable = styled(Table)(({ theme }) => ({
   whiteSpace: "pre",
@@ -78,34 +80,34 @@ const PendingBalanceTable = ({ setSelectedData }) => {
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable responsive>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Participant's<br />Username</TableCell>
-            <TableCell align="center">Event's<br /> Creator</TableCell>
-            <TableCell align="center">Accepted</TableCell>
-            <TableCell align="right">Fetch Data</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th align="center">Event</Th>
+            <Th align="center">Participant</Th>
+            <Th align="center">E-Creator</Th>
+            <Th align="center">Accepted</Th>
+            <Th align="right">Fetch</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           {createdEvents
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((events, index) => (
-              <TableRow key={index}>
-                <TableCell align="center">{events.evento}</TableCell>
-                <TableCell align="center">{events.usuario_participante}</TableCell>
-                <TableCell align="center">{events.evento_creador}</TableCell>
-                <TableCell align="center">{events.aceptado}</TableCell>
-                <TableCell align="right">
+              <Tr>
+                <Td align="center">{events.evento}</Td>
+                <Td align="center">{events.usuario_participante}</Td>
+                <Td align="center">{events.evento_creador}</Td>
+                <Td align="center">{events.aceptado}</Td>
+                <Td align="right">
                   <IconButton onClick={() => handleFetch(events)}>
                     <Icon color="info">edit</Icon>
                   </IconButton>
-                </TableCell>
-              </TableRow>
+                </Td>
+              </Tr>
             ))}
-        </TableBody>
-      </StyledTable>
+        </Tbody>
+      </Table>
 
       <TablePagination
         sx={{ px: 2 }}

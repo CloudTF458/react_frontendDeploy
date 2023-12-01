@@ -1,20 +1,22 @@
 import {
-    Box,
-    Icon,
-    IconButton,
-    styled,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TablePagination,
-    TableRow,
-  } from "@mui/material";
-  import { Alert, Snackbar } from "@mui/material";
-  import { useState, useEffect, useContext } from "react";
-  import * as utils from 'app/utils/utils';
-  import React from "react";
-  import { userContext } from "../../contexts/user-context"
+  Box,
+  Icon,
+  IconButton,
+  styled,
+  // Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
+import { useState, useEffect, useContext } from "react";
+import * as utils from 'app/utils/utils';
+import React from "react";
+import { userContext } from "../../contexts/user-context"
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
   
   const StyledTable = styled(Table)(() => ({
 
@@ -138,34 +140,35 @@ import {
             {errMsg}
           </Alert>
         </Snackbar>
-        <StyledTable responsive>
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Description</TableCell>
-              <TableCell align="center">Valor</TableCell>
-              <TableCell align="center">Event<br />Name</TableCell>
-              <TableCell align="center">Event<br />Type</TableCell>
-              <TableCell align="right">Remove<br />Activity</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+        
+        <Table>
+          <Thead>
+            <Tr>
+              <Th align="center">Description</Th>
+              <Th align="center">Valor</Th>
+              <Th align="center">Name</Th>
+              <Th align="center">Type</Th>
+              <Th align="center">Remove</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             {activitiesList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((activity, index) => (
-                <TableRow key={index}>
-                  <TableCell align="left">{activity.actividad}</TableCell>
-                  <TableCell align="center">{activity.actividad_valor}</TableCell>
-                  <TableCell align="center">{activity.evento}</TableCell>
-                  <TableCell align="center">{activity.actividad_usuario_propietario}</TableCell>
-                  <TableCell align="right">
+                <Tr>
+                  <Td align="center">{activity.actividad}</Td>
+                  <Td align="center">{activity.actividad_valor}</Td>
+                  <Td align="center">{activity.evento}</Td>
+                  <Td align="center">{activity.actividad_usuario_propietario}</Td>
+                  <Td align="center">
                     <IconButton onClick={() => handleDeleteActivity(activity)}>
                       <Icon color="error">close</Icon>
                     </IconButton>
-                  </TableCell>
-                </TableRow>
+                  </Td>
+                </Tr>
               ))}
-          </TableBody>
-        </StyledTable>
+          </Tbody>
+        </Table>
   
         <TablePagination
           sx={{ px: 2 }}

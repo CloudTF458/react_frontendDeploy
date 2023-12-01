@@ -3,7 +3,7 @@ import {
   styled,
   Icon,
   IconButton,
-  Table,
+  // Table,
   TableBody,
   TableCell,
   TableHead,
@@ -14,6 +14,8 @@ import {
 import { useState, useEffect, useContext } from "react";
 import * as utils from 'app/utils/utils';
 import { userContext } from "../../contexts/user-context";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const StyledTable = styled(Table)(({ theme }) => ({
   whiteSpace: "pre",
@@ -78,38 +80,38 @@ const PendingBalanceTable = ({ setSelectedEvent }) => {
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable responsive>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Event<br />type</TableCell>
-            <TableCell align="center">Picture</TableCell>
-            <TableCell align="center">Creator</TableCell>
-            <TableCell align="right">Fetch Data</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th align="center">Event</Th>
+            <Th align="center">E-type</Th>
+            <Th align="center">Picture</Th>
+            <Th align="center">Creator</Th>
+            <Th align="right">Fetch</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           {createdEvents
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((events, index) => (
-              <TableRow key={index}>
-                <TableCell align="center">{events.evento}</TableCell>
-                <TableCell align="center">{events.evento_tipo}</TableCell>
-                <TableCell align="center">
+              <Tr>
+                <Td align="center">{events.evento}</Td>
+                <Td align="center">{events.evento_tipo}</Td>
+                <Td align="center">
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Avatar src={events.evento_foto} />
                   </div>
-                </TableCell>
-                <TableCell align="center">{events.evento_creador}</TableCell>
-                <TableCell align="right">
+                </Td>
+                <Td align="center">{events.evento_creador}</Td>
+                <Td align="right">
                   <IconButton onClick={() => handleEditEvent(events)}>
                     <Icon color="info">edit</Icon>
                   </IconButton>
-                </TableCell>
-              </TableRow>
+                </Td>
+              </Tr>
             ))}
-        </TableBody>
-      </StyledTable>
+        </Tbody>
+      </Table>
 
       <TablePagination
         sx={{ px: 2 }}
