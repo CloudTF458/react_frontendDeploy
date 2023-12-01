@@ -87,6 +87,8 @@ const SimpleForm = ({ selectedData }) => {
       setErrMsg("Error, por favor contacte a soporte!")
       setMsgType("error")
     }
+    setState({eventName:""});
+    setState({email_contact:""});
   };
 
 

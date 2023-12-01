@@ -145,6 +145,9 @@ const SimpleForm = ({ selectedData }) => {
     setOpen(true)
     setErrMsg("Participant added successfully!")
     setMsgType("success")
+    setState({activityDescription:""});
+    setState({email_contact:""});
+    setState({participation_value:""});
   };
 
 
