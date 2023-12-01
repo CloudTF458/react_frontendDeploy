@@ -3,9 +3,9 @@ import {
   styled,
   Icon,
   IconButton,
-  Table,
+  // Table,
   TableBody,
-  TableCell,
+  // Th,
   TableHead,
   TablePagination,
   TableRow,
@@ -13,6 +13,8 @@ import {
 import { useState, useEffect, useContext } from "react";
 import * as utils from 'app/utils/utils';
 import { userContext } from "../../contexts/user-context";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const StyledTable = styled(Table)(({ theme }) => ({
   whiteSpace: "pre",
@@ -78,36 +80,36 @@ const PendingBalanceTable = ({ setSelectedBalance }) => {
   }
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable responsive>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Activity</TableCell>
-            <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Pending<br />balance</TableCell>
-            <TableCell align="center">Total<br />balance</TableCell>
-            <TableCell align="center">Accepted</TableCell>
-            <TableCell align="right">Fetch Data</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th align="center">Activity</Th>
+            <Th align="center">Event</Th>
+            <Th align="center">Pending</Th>
+            <Th align="center">Total</Th>
+            <Th align="center">Accepted</Th>
+            <Th align="right">Fetch</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           {pendingBalanceList
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((balance, index) => (
-              <TableRow key={index}>
-                <TableCell align="center">{balance.actividad}</TableCell>
-                <TableCell align="center">{balance.evento}</TableCell>
-                <TableCell align="center">${balance.saldo_pendiente}</TableCell>
-                <TableCell align="center">${balance.saldo_total}</TableCell>
-                <TableCell align="center">{balance.aceptado}</TableCell>
-                <TableCell align="right">
+              <Tr>
+                <Td align="center">{balance.actividad}</Td>
+                <Td align="center">{balance.evento}</Td>
+                <Td align="center">${balance.saldo_pendiente}</Td>
+                <Td align="center">${balance.saldo_total}</Td>
+                <Td align="center">{balance.aceptado}</Td>
+                <Td align="right">
                   <IconButton onClick={() => handleFetch(balance)}>
                     <Icon color="info">edit</Icon>
                   </IconButton>
-                </TableCell>
-              </TableRow>
+                </Td>
+              </Tr>
             ))}
-        </TableBody>
-      </StyledTable>
+        </Tbody>
+      </Table>
 
       <TablePagination
         sx={{ px: 2 }}

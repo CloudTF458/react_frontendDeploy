@@ -3,7 +3,7 @@ import {
   Icon,
   IconButton,
   styled,
-  Table,
+  // Table,
   TableBody,
   TableCell,
   TableHead,
@@ -15,16 +15,13 @@ import {
 import { useState, useEffect, useContext } from "react";
 import * as utils from 'app/utils/utils';
 import { userContext } from "../../contexts/user-context";
-import React from "react";
+import React from 'react';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
-const StyledTable = styled(Table)(({ theme }) => ({
+const ResponsiveTable = styled(Table)(({ theme }) => ({
   whiteSpace: "pre",
-  "& thead": {
-    "& tr": { "& th": { paddingLeft: 0, paddingRight: 0 } },
-  },
-  "& tbody": {
-    "& tr": { "& td": { paddingLeft: 0 } },
-  },
+  overflowX: "auto",
 }));
 
 const PendingBalanceTable = ({ setSelectedData }) => {
@@ -138,44 +135,45 @@ const PendingBalanceTable = ({ setSelectedData }) => {
             {errMsg}
           </Alert>
       </Snackbar>
-      <StyledTable responsive>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Activity</TableCell>
-            <TableCell align="center">Event</TableCell>
-            <TableCell align="center">Participantion<br />value</TableCell>
-            <TableCell align="center">Participant's<br />Username</TableCell>
-            <TableCell align="center">Event's<br />Creator</TableCell>
-            <TableCell align="center">Accepted</TableCell>
-            <TableCell align="center">Remove</TableCell>
-            <TableCell align="right">Fetch Data</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Activity</Th>
+            <Th>Event</Th>
+            <Th>Participation</Th>
+            <Th>Participant</Th>
+            <Th>E-Creator</Th>
+            <Th>Accepted</Th>
+            <Th>Remove</Th>
+            <Th>Fetch Data</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           {createdEvents
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((events, index) => (
-              <TableRow key={index}>
-                <TableCell align="center">{events.actividad}</TableCell>
-                <TableCell align="center">{events.evento}</TableCell>
-                <TableCell align="center">{events.valor_participacion}</TableCell>
-                <TableCell align="center">{events.usuario_participante}</TableCell>
-                <TableCell align="center">{events.evento_creador}</TableCell>
-                <TableCell align="center">{events.aceptado}</TableCell>
-                <TableCell align="center">
+              <Tr>
+                <Td align="center">{events.actividad}</Td>
+                <Td align="center">{events.evento}</Td>
+                <Td align="center">{events.valor_participacion}</Td>
+                <Td align="center">{events.usuario_participante}</Td>
+                <Td align="center">{events.evento_creador}</Td>
+                <Td align="center">{events.aceptado}</Td>
+                <Td align="center">
                   <IconButton onClick={() => handleDeleteParticipant(events)}>
                     <Icon color="error">close</Icon>
                   </IconButton>
-                </TableCell>
-                <TableCell align="right">
+                </Td>
+                <Td align="center">
                   <IconButton onClick={() => handleFetch(events)}>
                     <Icon color="info">edit</Icon>
                   </IconButton>
-                </TableCell>
-              </TableRow>
+                </Td>
+              </Tr>
             ))}
-        </TableBody>
-      </StyledTable>
+        </Tbody>
+      </Table>
 
       <TablePagination
         sx={{ px: 2 }}
@@ -189,6 +187,7 @@ const PendingBalanceTable = ({ setSelectedData }) => {
         nextIconButtonProps={{ "aria-label": "Next Page" }}
         backIconButtonProps={{ "aria-label": "Previous Page" }}
       />
+
     </Box>
   );
 };
