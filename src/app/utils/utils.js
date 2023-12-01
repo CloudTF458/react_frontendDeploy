@@ -432,7 +432,7 @@ export const eliminarParticipante = async (config) => {
 */
 export const eliminarParticipanteEvento = async (config) => {
   const data = await fetch(
-    "http://127.0.0.1:8000/remove/contact/event/",
+    "https://django-eventos.azurewebsites.net/remove/contact/event/",
     config
   );
   return data.json();
